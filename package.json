@@ -1,0 +1,21 @@
+{
+  "name": "site-stash",
+  "version": "1.0.0",
+  "description": "Site Stash is a quick and easy way to save your bookmarks!",
+  "homepage": "https://github.com/talonlikeaclaw/site-stash#readme",
+  "bugs": {
+    "url": "https://github.com/talonlikeaclaw/site-stash/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/talonlikeaclaw/site-stash.git"
+  },
+  "license": "ISC",
+  "author": "Talon Dunbar (talonlikeaclaw)",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "cd server && node bin/www",
+    "build": "cd client && npm install && npm run build && cd ../server && npm install"
+  }
+}
