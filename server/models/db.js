@@ -99,4 +99,26 @@ class DB {
   async create(item) {
     return instance.collection.insertOne(item);
   }
+
+  /**
+   * Inserts multiple documents into the current collection.
+   * @param {Array<object>} items - Array of documents to insert.
+   * @returns {Promise<number>} - The number of inserted documents.
+   */
+  async createMany(items) {
+    const result = await instance.collection.insertMany(items);
+    return result.insertedCount;
+  }
+
+  /**
+   * Clears the current collection and inserts a new batch of documents.
+   * @param {Array<object>} items - Array of seed documents.
+   */
+  async dropAndSeed(items) {
+    await instance.collection.deleteMany({});
+    const result = await instance.collection.insertMany(items);
+    console.log(
+      `[DB] Seeded ${result.insertedCount} documents into ${instance.collection.collectionName}`
+    );
+  }
 }
