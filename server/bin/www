@@ -1,0 +1,57 @@
+#!/usr/bin/env node
+import app from '../app.js';
+import { db } from '../db/db.js';
+
+const NODE_ENV = process.env.NODE_ENV ?? 'development';
+const PORT = process.env.PORT || 3000;
+const DB_NAME = process.env.DB_NAME;
+
+if (!DB_NAME) {
+  console.error('[DB] Missing DB_NAME environment variable');
+  process.exit(1);
+}
+
+// Database connection
+try {
+  await db.connect(DB_NAME);
+} catch (e) {
+  console.error('[DB] Could not connect:', e);
+  process.exit(1);
+}
+
+// Start HTTP server
+const server = app.listen(PORT, () => {
+  console.log(
+    `[HTTP] Server (${NODE_ENV}) listening on http://localhost:${PORT}`
+  );
+});
+
+/**
+ * Gracefully handles process shutdown signals (SIGINT / SIGTERM).
+ * Ensures the HTTP server and database connections are closed cleanly.
+ *
+ * @param {string} signal - The system signal received.
+ */
+function handleShutdown(signal) {
+  console.info(`[SYS] ${signal} received: shutting down...`);
+  if (server) {
+    server.close(async () => {
+      if (db) {
+        try {
+          await db.close();
+          console.log('[DB] Connection closed');
+        } catch (e) {
+          console.error('[DB] Error during close:', e);
+        }
+      }
+      console.debug('[HTTP] Server closed');
+      process.exit(0);
+    });
+  } else {
+    process.exit(0);
+  }
+}
+
+// Signal handlers
+process.on('SIGTERM', () => handleShutdown('SIGTERM'));
+process.on('SIGINT', () => handleShutdown('SIGINT'));
