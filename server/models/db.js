@@ -63,4 +63,23 @@ class DB {
   currentCollection() {
     return instance.collectionName;
   }
+
+  /**
+   * Runs an aggregation pipeline on the current collection.
+   * @param {Array<Object>} pipeline
+   * @returns {Promise<Array>}
+   */
+  async aggregate(pipeline) {
+    return instance.collection.aggregate(pipeline).toArray();
+  }
+
+  /**
+   * Finds all documents matching a query.
+   * @param {object} [query={}] - MongoDB query filter.
+   * @param {object} [projection={ _id: 0 }] - Fields to include or exclude.
+   * @returns {Promise<Array>} - Array of matching documents.
+   */
+  async find(query = {}, projection = { _id: 0 }) {
+    return instance.collection.find(query).project(projection).toArray();
+  }
 }
