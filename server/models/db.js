@@ -82,4 +82,21 @@ class DB {
   async find(query = {}, projection = { _id: 0 }) {
     return instance.collection.find(query).project(projection).toArray();
   }
+
+  /**
+   * Returns all documents in the current collection.
+   * @returns {Promise<Array>} - Array of all documents.
+   */
+  async readAll() {
+    return instance.collection.find().project({ _id: 0 }).toArray();
+  }
+
+  /**
+   * Inserts a single document into the current collection.
+   * @param {object} item - The document to insert.
+   * @returns {Promise<object>} - The MongoDB insertion result.
+   */
+  async create(item) {
+    return instance.collection.insertOne(item);
+  }
 }
