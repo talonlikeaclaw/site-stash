@@ -121,4 +121,14 @@ class DB {
       `[DB] Seeded ${result.insertedCount} documents into ${instance.collection.collectionName}`
     );
   }
+
+  /**
+  * Gracefully closes the MongoDB connection.
+  */
+  async close() {
+    await instance.mongoClient.close();
+    this.db = null;
+    this.collection = null;
+  }
+
 }
