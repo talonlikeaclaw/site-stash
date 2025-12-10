@@ -23,4 +23,27 @@ class DB {
     }
     return instance;
   }
+
+  /**
+   * Connects to the MongoDB database if not already connected.
+   * @param {string} dbName - The database name to connect to.
+   */
+  async connect(dbName) {
+    if (instance.db) return;
+
+    this.mongoClient = new MongoClient(ATLAS_URI, {
+      serverApi: {
+        version: ServerApiVersion.v1,
+        strict: true,
+        deprecationErrors: true
+      }
+    });
+
+    await instance.mongoClient.connect();
+    instance.db = await instance.mongoClient.add(dbName);
+
+    // Health check
+    await instance.db(dbName).command({ ping: 1 });
+    console.log(`[DB] Successfully connected to MongoDB database: ${dbName}`);
+  }
 }
