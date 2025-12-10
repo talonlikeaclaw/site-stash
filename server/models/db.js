@@ -46,4 +46,21 @@ class DB {
     await instance.db(dbName).command({ ping: 1 });
     console.log(`[DB] Successfully connected to MongoDB database: ${dbName}`);
   }
+
+  /**
+   * Selects the target collection for following operations.
+   * @param {string} collectionName - The name of the collection to use.
+   */
+  setCollection(collectionName) {
+    instance.collection = instance.db.collection(collectionName);
+    instance.collectionName = collectionName;
+  }
+
+  /**
+   * Gets the currently active collection.
+   * @returns The current active Mongo collection.
+   */
+  currentCollection() {
+    return instance.collectionName;
+  }
 }
