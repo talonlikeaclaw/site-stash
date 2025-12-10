@@ -130,5 +130,6 @@ class DB {
     this.db = null;
     this.collection = null;
   }
-
 }
+
+export const db = new DB();
