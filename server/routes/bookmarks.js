@@ -7,7 +7,7 @@ const router = express.Router();
  * POST /api/bookmarks
  * Create a new bookmark
  */
-router.post('/', async (req, res) => {
+router.post('/', async (req, res, next) => {
   try {
     db.setCollection('bookmarks');
     const { url, title, description, tags, collectionId } = req.body;
