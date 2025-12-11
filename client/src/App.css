@@ -2,7 +2,113 @@
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.app {
+  width: 100%;
+  min-height: 100vh;
+}
+
+.app-header {
   text-align: center;
+  margin-bottom: 2rem;
+  padding: 1rem 0;
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.app-header h1 {
+  color: #f9fafb;
+  margin: 0;
+}
+
+.app-main {
+  width: 100%;
+  min-height: calc(100vh - 180px);
+}
+
+@media (max-width: 768px) {
+  #root {
+    padding: 0.75rem;
+  }
+
+  .app {
+    overflow-x: hidden;
+  }
+
+  .app-header {
+    min-height: 60px;
+    margin-bottom: 1.5rem;
+  }
+
+  .app-main {
+    min-height: calc(100vh - 140px);
+  }
+}
+
+.loading,
+.error {
+  text-align: center;
+  padding: 2rem;
+  color: #f9fafb;
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.error {
+  background-color: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 8px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.error p {
+  color: #fca5a5;
+  margin-bottom: 1rem;
+}
+
+.error button {
+  margin-top: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .loading,
+  .error {
+    padding: 1.5rem;
+    min-height: 300px;
+  }
+
+  .error {
+    padding: 1.5rem;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  .app-header h1 {
+    color: #1f2937;
+  }
+
+  .loading,
+  .error {
+    color: #1f2937;
+  }
+
+  .error {
+    background-color: rgba(254, 226, 226, 1);
+    border-color: rgba(239, 68, 68, 0.5);
+  }
+
+  .error p {
+    color: #dc2626;
+  }
 }
 
 .logo {
@@ -38,5 +144,5 @@
 }
 
 .read-the-docs {
-  color: #888;
+  color: #595959;
 }
