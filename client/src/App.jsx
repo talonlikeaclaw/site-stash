@@ -1,35 +1,59 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, useEffect } from 'react';
+import BookmarkList from './components/BookmarkList';
+import './App.css';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [bookmarks, setBookmarks] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  // Fetch bookmarks on component mount
+  useEffect(() => {
+    fetchBookmarks();
+  }, []);
+
+  const fetchBookmarks = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const response = await fetch('/api/bookmarks');
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch bookmarks');
+      }
+
+      const data = await response.json();
+      setBookmarks(data);
+    } catch (err) {
+      setError(err.message);
+      console.error('Error fetching bookmarks:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="app">
+      <header className="app-header">
+        <h1>Site Stash</h1>
+      </header>
+
+      <main className="app-main">
+        {loading && <div className="loading">Loading bookmarks...</div>}
+
+        {error && (
+          <div className="error">
+            <p>Error: {error}</p>
+            <button onClick={fetchBookmarks}>Retry</button>
+          </div>
+        )}
+
+        {!loading && !error && (
+          <BookmarkList bookmarks={bookmarks} />
+        )}
+      </main>
+    </div>
+  );
 }
 
-export default App
+export default App;
