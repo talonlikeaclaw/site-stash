@@ -1,0 +1,26 @@
+meta {
+  name: POST bookmarks
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{URL}}:{{PORT}}/api/bookmarks
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+      "url": "https://github.com",
+      "title": "GitHub - Where the world builds software",
+      "description": "GitHub is where over 100 million developers shape the future of software, together. Contribute to the open source community, manage your Git repositories, review code like a pro, track bugs and features, power your CI/CD and DevOps workflows, and secure code before you commit it.",
+      "tags": ["development", "git", "version-control", "open-source", "code"],
+      "collectionId": null
+    }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

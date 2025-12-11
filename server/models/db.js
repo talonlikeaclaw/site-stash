@@ -40,10 +40,10 @@ class DB {
     });
 
     await instance.mongoClient.connect();
-    instance.db = await instance.mongoClient.add(dbName);
+    instance.db = instance.mongoClient.db(dbName);
 
     // Health check
-    await instance.db(dbName).command({ ping: 1 });
+    await instance.db.command({ ping: 1 });
     console.log(`[DB] Successfully connected to MongoDB database: ${dbName}`);
   }
 
@@ -76,11 +76,26 @@ class DB {
   /**
    * Finds all documents matching a query.
    * @param {object} [query={}] - MongoDB query filter.
-   * @param {object} [projection={ _id: 0 }] - Fields to include or exclude.
+   * @param {object} [projection={}] - Fields to include or exclude.
+   * @param {object} [sort=null] - Sort order (e.g., { createdAt: -1 }).
    * @returns {Promise<Array>} - Array of matching documents.
    */
-  async find(query = {}, projection = { _id: 0 }) {
-    return instance.collection.find(query).project(projection).toArray();
+  async find(query = {}, projection = {}, sort = null) {
+    const cursor = instance.collection.find(query).project(projection);
+    if (sort) {
+      cursor.sort(sort);
+    }
+    return cursor.toArray();
+  }
+
+  /**
+   * Finds a single document matching a query.
+   * @param {object} query - MongoDB query filter.
+   * @param {object} [projection={}] - Fields to include or exclude.
+   * @returns {Promise<object|null>} - The matching document or null.
+   */
+  async findOne(query, projection = {}) {
+    return instance.collection.findOne(query, { projection });
   }
 
   /**
