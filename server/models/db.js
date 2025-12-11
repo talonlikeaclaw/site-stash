@@ -84,6 +84,16 @@ class DB {
   }
 
   /**
+   * Finds a single document matching a query.
+   * @param {object} query - MongoDB query filter.
+   * @param {object} [projection={}] - Fields to include or exclude.
+   * @returns {Promise<object|null>} - The matching document or null.
+   */
+  async findOne(query, projection = {}) {
+    return instance.collection.findOne(query, { projection });
+  }
+
+  /**
    * Returns all documents in the current collection.
    * @returns {Promise<Array>} - Array of all documents.
    */
