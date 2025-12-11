@@ -76,11 +76,16 @@ class DB {
   /**
    * Finds all documents matching a query.
    * @param {object} [query={}] - MongoDB query filter.
-   * @param {object} [projection={ _id: 0 }] - Fields to include or exclude.
+   * @param {object} [projection={}] - Fields to include or exclude.
+   * @param {object} [sort=null] - Sort order (e.g., { createdAt: -1 }).
    * @returns {Promise<Array>} - Array of matching documents.
    */
-  async find(query = {}, projection = { _id: 0 }) {
-    return instance.collection.find(query).project(projection).toArray();
+  async find(query = {}, projection = {}, sort = null) {
+    const cursor = instance.collection.find(query).project(projection);
+    if (sort) {
+      cursor.sort(sort);
+    }
+    return cursor.toArray();
   }
 
   /**
