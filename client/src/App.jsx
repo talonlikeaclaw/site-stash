@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import BookmarkList from './components/BookmarkList';
+import BookmarkForm from './components/BookmarkForm';
 import './App.css';
 
 function App() {
@@ -32,6 +33,11 @@ function App() {
     }
   };
 
+  const handleBookmarkAdded = (newBookmark) => {
+    // Add new bookmark to the beginning of the list
+    setBookmarks(prev => [newBookmark, ...prev]);
+  };
+
   return (
     <div className="app">
       <header className="app-header">
@@ -39,6 +45,8 @@ function App() {
       </header>
 
       <main className="app-main">
+        <BookmarkForm onBookmarkAdded={handleBookmarkAdded} />
+
         {loading && <div className="loading">Loading bookmarks...</div>}
 
         {error && (
