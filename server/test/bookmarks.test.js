@@ -69,4 +69,68 @@ describe('POST /api/bookmarks', () => {
       expect(findOneStub.calledOnce).to.be.true;
     });
   });
+
+  describe('Validation errors', () => {
+    it('should return 400 if url is missing', async () => {
+      const invalidBookmark = {
+        title: 'Missing URL'
+      };
+
+      const res = await request(app)
+        .post('/api/bookmarks')
+        .send(invalidBookmark)
+        .expect(400);
+
+      expect(res.body).to.have.property('error');
+      expect(res.body.error).to.equal('URL and title are required');
+
+      // Verify no database operations were attempted
+      expect(createStub.called).to.be.false;
+      expect(findOneStub.called).to.be.false;
+    });
+
+    it('should return 400 if title is missing', async () => {
+      const invalidBookmark = {
+        url: 'https://example.com'
+      };
+
+      const res = await request(app)
+        .post('/api/bookmarks')
+        .send(invalidBookmark)
+        .expect(400);
+
+      expect(res.body).to.have.property('error');
+      expect(res.body.error).to.equal('URL and title are required');
+    });
+
+    it('should return 400 if url is invalid format', async () => {
+      const invalidBookmark = {
+        url: 'not-a-valid-url',
+        title: 'Invalid URL'
+      };
+
+      const res = await request(app)
+        .post('/api/bookmarks')
+        .send(invalidBookmark)
+        .expect(400);
+
+      expect(res.body).to.have.property('error');
+      expect(res.body.error).to.equal('Invalid URL format');
+    });
+
+    it('should return 400 for malformed URL', async () => {
+      const invalidBookmark = {
+        url: 'http://',
+        title: 'Malformed'
+      };
+
+      const res = await request(app)
+        .post('/api/bookmarks')
+        .send(invalidBookmark)
+        .expect(400);
+
+      expect(res.body.error).to.equal('Invalid URL format');
+      expect(createStub.called).to.be.false;
+    });
+  });
 });
