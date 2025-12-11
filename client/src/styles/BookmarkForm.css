@@ -1,0 +1,259 @@
+.bookmark-form-container {
+  margin-bottom: 2rem;
+  width: 100%;
+}
+
+.bookmark-form-toggle {
+  width: 100%;
+  padding: 1rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #f9fafb;
+  background-color: #2563eb;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  text-align: center;
+}
+
+.bookmark-form-toggle:hover {
+  background-color: #1d4ed8;
+}
+
+.bookmark-form-toggle:focus {
+  outline: 2px solid #60a5fa;
+  outline-offset: 2px;
+}
+
+.bookmark-form {
+  background-color: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-top: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  animation: slideDown 0.2s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.bookmark-form-error {
+  background-color: rgba(254, 226, 226, 1);
+  border: 1px solid rgba(239, 68, 68, 0.5);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+}
+
+.bookmark-form-error p {
+  color: #dc2626;
+  margin: 0;
+  font-size: 0.875rem;
+}
+
+.bookmark-form-group {
+  margin-bottom: 1.25rem;
+}
+
+.bookmark-form-group label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 0.5rem;
+}
+
+.bookmark-form-group input,
+.bookmark-form-group textarea {
+  width: 100%;
+  padding: 0.625rem 0.875rem;
+  font-size: 0.9375rem;
+  font-family: inherit;
+  color: #1f2937;
+  background-color: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
+}
+
+.bookmark-form-group input:focus,
+.bookmark-form-group textarea:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.bookmark-form-group input::placeholder,
+.bookmark-form-group textarea::placeholder {
+  color: #9ca3af;
+}
+
+.bookmark-form-group input:disabled,
+.bookmark-form-group textarea:disabled {
+  background-color: #f9fafb;
+  color: #6b7280;
+  cursor: not-allowed;
+}
+
+.bookmark-form-group textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.bookmark-form-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.bookmark-form-submit,
+.bookmark-form-cancel {
+  flex: 1;
+  padding: 0.75rem 1.25rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.bookmark-form-submit {
+  color: #ffffff;
+  background-color: #2563eb;
+}
+
+.bookmark-form-submit:hover:not(:disabled) {
+  background-color: #1d4ed8;
+}
+
+.bookmark-form-submit:disabled {
+  background-color: #93c5fd;
+  cursor: not-allowed;
+}
+
+.bookmark-form-cancel {
+  color: #374151;
+  background-color: #f3f4f6;
+}
+
+.bookmark-form-cancel:hover:not(:disabled) {
+  background-color: #e5e7eb;
+}
+
+.bookmark-form-cancel:disabled {
+  color: #9ca3af;
+  cursor: not-allowed;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .bookmark-form {
+    background-color: #1f2937;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  }
+
+  .bookmark-form-error {
+    background-color: rgba(239, 68, 68, 0.1);
+    border-color: rgba(239, 68, 68, 0.3);
+  }
+
+  .bookmark-form-error p {
+    color: #fca5a5;
+  }
+
+  .bookmark-form-group label {
+    color: #f9fafb;
+  }
+
+  .bookmark-form-group input,
+  .bookmark-form-group textarea {
+    color: #f9fafb;
+    background-color: #374151;
+    border-color: #4b5563;
+  }
+
+  .bookmark-form-group input:focus,
+  .bookmark-form-group textarea:focus {
+    background-color: #374151;
+    border-color: #60a5fa;
+  }
+
+  .bookmark-form-group input::placeholder,
+  .bookmark-form-group textarea::placeholder {
+    color: #6b7280;
+  }
+
+  .bookmark-form-group input:disabled,
+  .bookmark-form-group textarea:disabled {
+    background-color: #1f2937;
+    color: #9ca3af;
+  }
+
+  .bookmark-form-cancel {
+    color: #f9fafb;
+    background-color: #374151;
+  }
+
+  .bookmark-form-cancel:hover:not(:disabled) {
+    background-color: #4b5563;
+  }
+}
+
+/* Light mode explicit override */
+@media (prefers-color-scheme: light) {
+  .bookmark-form-toggle {
+    color: #ffffff;
+  }
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .bookmark-form-container {
+    margin-bottom: 1.5rem;
+  }
+
+  .bookmark-form-toggle {
+    padding: 0.875rem 1.25rem;
+    font-size: 0.9375rem;
+  }
+
+  .bookmark-form {
+    padding: 1.25rem;
+  }
+
+  .bookmark-form-group {
+    margin-bottom: 1rem;
+  }
+
+  .bookmark-form-group label {
+    font-size: 0.8125rem;
+  }
+
+  .bookmark-form-group input,
+  .bookmark-form-group textarea {
+    padding: 0.625rem 0.75rem;
+    font-size: 0.875rem;
+  }
+
+  .bookmark-form-actions {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .bookmark-form-submit,
+  .bookmark-form-cancel {
+    width: 100%;
+    padding: 0.75rem 1rem;
+  }
+}
