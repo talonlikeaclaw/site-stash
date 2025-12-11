@@ -14,3 +14,150 @@ settings {
   encodeUrl: true
   timeout: 0
 }
+
+example {
+  name: GET bookmarks
+  
+  request: {
+    url: {{URL}}:{{PORT}}/api/bookmarks
+    method: GET
+    mode: none
+  }
+  
+  response: {
+    headers: {
+      x-powered-by: Express
+      content-type: application/json; charset=utf-8
+      etag: W/"c7e-7YDsHpYvCzj9d0l2EqKZKngAhGs"
+      vary: Accept-Encoding
+      date: Thu, 11 Dec 2025 02:34:13 GMT
+      connection: keep-alive
+      keep-alive: timeout=5
+      transfer-encoding: chunked
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        [
+          {
+            "_id": "693a2c8a99fb58397415a11b",
+            "url": "https://www.freecodecamp.org",
+            "title": "freeCodeCamp - Learn to code for free",
+            "description": "Learn to code with free online courses, programming projects, and interview preparation for developer jobs.",
+            "tags": [
+              "learning",
+              "coding",
+              "education",
+              "free",
+              "tutorials"
+            ],
+            "collectionId": null,
+            "createdAt": "2025-12-11T02:29:30.055Z",
+            "updatedAt": "2025-12-11T02:29:30.055Z"
+          },
+          {
+            "_id": "693a2c3d99fb58397415a11a",
+            "url": "https://www.mongodb.com",
+            "title": "MongoDB - The most popular NoSQL database",
+            "description": "MongoDB is a source-available cross-platform document-oriented database program. Classified as a NoSQL database program, MongoDB uses JSON-like documents with optional schemas.",
+            "tags": [
+              "database",
+              "NoSQL",
+              "backend",
+              "data",
+              "cloud"
+            ],
+            "collectionId": null,
+            "createdAt": "2025-12-11T02:28:13.523Z",
+            "updatedAt": "2025-12-11T02:28:13.523Z"
+          },
+          {
+            "_id": "693a2bb599fb58397415a119",
+            "url": "https://www.reddit.com",
+            "title": "Reddit - Dive into anything",
+            "description": "Reddit is a network of communities where people can dive into their interests, hobbies and passions. There's a community for whatever you're interested in on Reddit.",
+            "tags": [
+              "social-media",
+              "community",
+              "forums",
+              "discussion",
+              "news"
+            ],
+            "collectionId": null,
+            "createdAt": "2025-12-11T02:25:57.454Z",
+            "updatedAt": "2025-12-11T02:25:57.454Z"
+          },
+          {
+            "_id": "693a27f3383eaa00ed724338",
+            "url": "https://developer.mozilla.org",
+            "title": "MDN Web Docs - Resources for Developers, by Developers",
+            "description": "The MDN Web Docs site provides information about Open Web technologies including HTML, CSS, and APIs for both Web sites and progressive web apps.",
+            "tags": [
+              "documentation",
+              "web-development",
+              "javascript",
+              "css",
+              "html"
+            ],
+            "collectionId": null,
+            "createdAt": "2025-12-11T02:09:55.358Z",
+            "updatedAt": "2025-12-11T02:09:55.358Z"
+          },
+          {
+            "_id": "693a27ed383eaa00ed724337",
+            "url": "https://stackoverflow.com",
+            "title": "Stack Overflow - Where Developers Learn, Share, & Build Careers",
+            "description": "Stack Overflow is the largest, most trusted online community for developers to learn, share their programming knowledge, and build their careers.",
+            "tags": [
+              "programming",
+              "Q&A",
+              "development",
+              "community",
+              "debugging"
+            ],
+            "collectionId": null,
+            "createdAt": "2025-12-11T02:09:49.187Z",
+            "updatedAt": "2025-12-11T02:09:49.187Z"
+          },
+          {
+            "_id": "693a1e3b0830badcb058f8fe",
+            "url": "https://github.com",
+            "title": "GitHub - Where the world builds software",
+            "description": "GitHub is where over 100 million developers shape the future of software, together. Contribute to the open source community, manage your Git repositories, review code like a pro, track bugs and features, power your CI/CD and DevOps workflows, and secure code before you commit it.",
+            "tags": [
+              "development",
+              "git",
+              "version-control",
+              "open-source",
+              "code"
+            ],
+            "collectionId": null,
+            "createdAt": "2025-12-11T01:28:27.679Z",
+            "updatedAt": "2025-12-11T01:28:27.679Z"
+          },
+          {
+            "_id": "693a1c8a0830badcb058f8fd",
+            "url": "https://claude.ai",
+            "title": "Claude - Anthropic AI Assistant",
+            "description": "Claude is a next generation AI assistant built for work and trained to be safe, accurate, and secure.",
+            "tags": [
+              "AI",
+              "chatbot",
+              "productivity",
+              "anthropic"
+            ],
+            "collectionId": null,
+            "createdAt": "2025-12-11T01:21:14.084Z",
+            "updatedAt": "2025-12-11T01:21:14.084Z"
+          }
+        ]
+      '''
+    }
+  }
+}

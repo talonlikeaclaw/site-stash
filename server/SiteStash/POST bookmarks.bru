@@ -12,15 +12,74 @@ post {
 
 body:json {
   {
-      "url": "https://github.com",
-      "title": "GitHub - Where the world builds software",
-      "description": "GitHub is where over 100 million developers shape the future of software, together. Contribute to the open source community, manage your Git repositories, review code like a pro, track bugs and features, power your CI/CD and DevOps workflows, and secure code before you commit it.",
-      "tags": ["development", "git", "version-control", "open-source", "code"],
-      "collectionId": null
-    }
+    "url": "https://developer.mozilla.org",
+    "title": "MDN Web Docs - Resources for Developers, by Developers",
+    "description": "The MDN Web Docs site provides information about Open Web technologies including HTML, CSS, and APIs for both Web sites and progressive web apps.",
+    "tags": ["documentation", "web-development", "javascript", "css", "html"],
+    "collectionId": null
+  }
 }
 
 settings {
   encodeUrl: true
   timeout: 0
+}
+
+example {
+  name: POST bookmarks
+  
+  request: {
+    url: {{URL}}:{{PORT}}/api/bookmarks
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "url": "https://developer.mozilla.org",
+        "title": "MDN Web Docs - Resources for Developers, by Developers",
+        "description": "The MDN Web Docs site provides information about Open Web technologies including HTML, CSS, and APIs for both Web sites and progressive web apps.",
+        "tags": ["documentation", "web-development", "javascript", "css", "html"],
+        "collectionId": null
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      x-powered-by: Express
+      content-type: application/json; charset=utf-8
+      content-length: 466
+      etag: W/"1d2-41eLqHJkx7Mb3j/wrBQIoE0eAwk"
+      vary: Accept-Encoding
+      date: Thu, 11 Dec 2025 02:09:55 GMT
+      connection: keep-alive
+      keep-alive: timeout=5
+    }
+  
+    status: {
+      code: 201
+      text: Created
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "_id": "693a27f3383eaa00ed724338",
+          "url": "https://developer.mozilla.org",
+          "title": "MDN Web Docs - Resources for Developers, by Developers",
+          "description": "The MDN Web Docs site provides information about Open Web technologies including HTML, CSS, and APIs for both Web sites and progressive web apps.",
+          "tags": [
+            "documentation",
+            "web-development",
+            "javascript",
+            "css",
+            "html"
+          ],
+          "collectionId": null,
+          "createdAt": "2025-12-11T02:09:55.358Z",
+          "updatedAt": "2025-12-11T02:09:55.358Z"
+        }
+      '''
+    }
+  }
 }
