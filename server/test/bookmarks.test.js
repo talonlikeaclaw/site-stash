@@ -68,6 +68,46 @@ describe('POST /api/bookmarks', () => {
       expect(createStub.calledOnce).to.be.true;
       expect(findOneStub.calledOnce).to.be.true;
     });
+
+    it('should create a bookmark with only required fields', async () => {
+      const newBookmark = {
+        url: 'https://minimal.com',
+        title: 'Minimal Bookmark'
+      };
+
+      const mockId = new ObjectId();
+      const mockCreatedBookmark = {
+        _id: mockId,
+        url: newBookmark.url,
+        title: newBookmark.title,
+        description: '',
+        tags: [],
+        collectionId: null,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      };
+
+      createStub.resolves({ insertedId: mockId });
+      findOneStub.resolves(mockCreatedBookmark);
+
+      const res = await request(app)
+        .post('/api/bookmarks')
+        .send(newBookmark)
+        .expect(201);
+
+      expect(res.body).to.have.property('_id');
+      expect(res.body.url).to.equal(newBookmark.url);
+      expect(res.body.title).to.equal(newBookmark.title);
+      expect(res.body.description).to.equal('');
+      expect(res.body.tags).to.deep.equal([]);
+      expect(res.body.collectionId).to.be.null;
+
+      // Verify the bookmark sent to db.create had default values
+      const createdBookmark = createStub.firstCall.args[0];
+      expect(createdBookmark.description).to.equal('');
+      expect(createdBookmark.tags).to.deep.equal([]);
+      expect(createdBookmark.collectionId).to.be.null;
+    });
   });
 
   describe('Validation errors', () => {
