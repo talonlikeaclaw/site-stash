@@ -40,10 +40,10 @@ class DB {
     });
 
     await instance.mongoClient.connect();
-    instance.db = await instance.mongoClient.add(dbName);
+    instance.db = instance.mongoClient.db(dbName);
 
     // Health check
-    await instance.db(dbName).command({ ping: 1 });
+    await instance.db.command({ ping: 1 });
     console.log(`[DB] Successfully connected to MongoDB database: ${dbName}`);
   }
 
