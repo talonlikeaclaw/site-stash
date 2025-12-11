@@ -10,13 +10,19 @@ describe('POST /api/bookmarks', () => {
   let createStub;
   let findOneStub;
 
-  before(() => {
+  beforeEach(() => {
     setCollectionStub = sinon.stub(db, 'setCollection');
     createStub = sinon.stub(db, 'create');
     findOneStub = sinon.stub(db, 'findOne');
   });
 
   afterEach(() => {
+    setCollectionStub.restore();
+    createStub.restore();
+    findOneStub.restore();
+  });
+
+  after(() => {
     sinon.restore();
   });
 
@@ -61,6 +67,6 @@ describe('POST /api/bookmarks', () => {
       expect(setCollectionStub.calledWith('bookmarks')).to.be.true;
       expect(createStub.calledOnce).to.be.true;
       expect(findOneStub.calledOnce).to.be.true;
-    })
-  })
+    });
+  });
 });
