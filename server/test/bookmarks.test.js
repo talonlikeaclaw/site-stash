@@ -108,6 +108,26 @@ describe('POST /api/bookmarks', () => {
       expect(createdBookmark.tags).to.deep.equal([]);
       expect(createdBookmark.collectionId).to.be.null;
     });
+
+    it('should retrieve the created bookmark using findOne', async () => {
+      const newBookmark = {
+        url: 'https://findone-test.com',
+        title: 'FindOne Test'
+      };
+
+      const mockId = new ObjectId();
+      createStub.resolves({ insertedId: mockId });
+      findOneStub.resolves({ _id: mockId, ...newBookmark });
+
+      await request(app)
+        .post('/api/bookmarks')
+        .send(newBookmark)
+        .expect(201);
+
+      expect(findOneStub.calledOnce).to.be.true;
+      const findQuery = findOneStub.firstCall.args[0];
+      expect(findQuery).to.deep.equal({ _id: mockId });
+    });
   });
 
   describe('Validation errors', () => {
