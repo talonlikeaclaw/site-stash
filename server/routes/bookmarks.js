@@ -4,6 +4,41 @@ import { db } from '../models/db.js';
 const router = express.Router();
 
 /**
+ * GET /api/bookmarks
+ * Get all bookmarks with optional filtering
+ */
+router.get('/', async (req, res) => {
+  try {
+    db.setCollection('bookmarks');
+    const { tag, collection, search } = req.query;
+    const query = {};
+
+    if (tag) {
+      query.tags = tag;
+    }
+
+    if (collection) {
+      query.collectionId = collection;
+    }
+
+    if (search) {
+      query.$or = [
+        { title: { $regex: search, $options: 'i' } },
+        { description: { $regex: search, $options: 'i' } },
+        { url: { $regex: search, $options: 'i' } }
+      ];
+    }
+
+    const bookmarks = await db.find(query, {}, { createdAt: -1 });
+
+    res.json(bookmarks);
+  } catch (error) {
+    console.error('Error fetching bookmarks:', error);
+    res.status(500).json({ error: 'Failed to fetch bookmarks' });
+  }
+});
+
+/**
  * POST /api/bookmarks
  * Create a new bookmark
  */
